@@ -20,7 +20,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 		// Do any additional setup after loading the view, typically from a nib.
 		self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
-		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
+		let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(MasterViewController.insertNewObject(_:)))
 		self.navigationItem.rightBarButtonItem = addButton
 		if let split = self.splitViewController {
 		    let controllers = split.viewControllers
@@ -39,23 +39,25 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 	}
 
 	func insertNewObject(sender: AnyObject) {
-		let context = self.fetchedResultsController.managedObjectContext
-		let entity = self.fetchedResultsController.fetchRequest.entity!
-		let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context)
-		     
-		// If appropriate, configure the new managed object.
-		// Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-		newManagedObject.setValue(NSDate(), forKey: "timeStamp")
-		     
-		// Save the context.
-		do {
-		    try context.save()
-		} catch {
-		    // Replace this implementation with code to handle the error appropriately.
-		    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-		    //print("Unresolved error \(error), \(error.userInfo)")
-		    abort()
-		}
+//		let context = self.fetchedResultsController.managedObjectContext
+//		let entity = self.fetchedResultsController.fetchRequest.entity!
+//		let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context)
+//		     
+//		// If appropriate, configure the new managed object.
+//		// Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+//		newManagedObject.setValue(NSDate(), forKey: "timeStamp")
+//		     
+//		// Save the context.
+//		do {
+//		    try context.save()
+//		} catch {
+//		    // Replace this implementation with code to handle the error appropriately.
+//		    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//		    //print("Unresolved error \(error), \(error.userInfo)")
+//		    abort()
+//		}
+		let mapViewControllerObj = self.storyboard?.instantiateViewControllerWithIdentifier("NewView") as! NewViewController
+		self.navigationController?.pushViewController(mapViewControllerObj, animated: true)
 	}
 
 	// MARK: - Segues
